@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pihu's Books &amp; Classes</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+<style>
+/* ==========================================================
+   Nothing in this <style> block ever needs changing.
+   All content is edited in the EDIT BLOCK further down.
+   ========================================================== */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:#f4f6fb;color:#1c2233;
+  padding:20px 16px 60px;line-height:1.5;
+  -webkit-tap-highlight-color:transparent;
+}
+.wrap{max-width:980px;margin:0 auto}
+header{text-align:center;margin-bottom:26px}
+header h1{font-size:1.9rem;font-weight:800;letter-spacing:-.5px}
+header p{color:#6b7590;font-size:.95rem;margin-top:4px}
+h2.section{
+  font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;
+  color:#8a93ab;margin:30px 0 12px;
+}
+/* ---- class join buttons ---- */
+.classes{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.class-btn{
+  display:flex;align-items:center;gap:12px;
+  padding:16px 18px;border-radius:16px;text-decoration:none;color:#fff;
+  font-weight:700;font-size:1.02rem;
+  box-shadow:0 4px 14px rgba(20,30,60,.14);
+  transition:transform .12s ease;
+}
+.class-btn:active{transform:scale(.97)}
+.class-btn .ic{font-size:1.5rem;line-height:1}
+.class-btn .sub{display:block;font-weight:500;font-size:.78rem;opacity:.92}
+.class-btn.todo{background:#c9cee0 !important;color:#5d6480;box-shadow:none;cursor:default}
+/* ---- breadcrumb / back ---- */
+.bar{display:flex;align-items:center;gap:10px;margin:30px 0 12px;min-height:34px}
+.back{
+  background:#fff;border:1px solid #dfe4f0;border-radius:10px;
+  padding:7px 13px;font-size:.85rem;font-weight:600;color:#3b4667;cursor:pointer;
+}
+.back:hover{background:#eef1f8}
+.crumb{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#8a93ab}
+/* ---- cards ---- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:14px}
+.card{
+  background:#fff;border-radius:18px;padding:20px 14px;text-align:center;
+  border:2px solid #fff;cursor:pointer;text-decoration:none;color:inherit;display:block;
+  box-shadow:0 2px 10px rgba(20,30,60,.07);
+  transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(20,30,60,.13)}
+.card:active{transform:scale(.97)}
+.card .ic{font-size:2.4rem;display:block;margin-bottom:8px}
+.card .nm{display:block;font-weight:700;font-size:1.02rem;word-break:break-word}
+.card .meta{display:block;font-size:.77rem;color:#8a93ab;margin-top:4px}
+.card.todo{opacity:.55;cursor:default}
+.card.todo:hover{transform:none;box-shadow:0 2px 10px rgba(20,30,60,.07)}
+.card .num{
+  display:inline-block;min-width:34px;height:34px;line-height:34px;border-radius:50%;
+  background:#eef1f8;font-weight:800;font-size:1rem;color:#3b4667;margin-bottom:8px;
+}
+footer{text-align:center;color:#9aa2b8;font-size:.8rem;margin-top:44px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="title">📚 Pihu's Books &amp; Classes</h1>
+    <p id="subtitle"></p>
+  </header>
+
+  <div id="home-classes">
+    <h2 class="section">Join a class</h2>
+    <div class="classes" id="classes"></div>
+  </div>
+
+  <div class="bar" id="bar"></div>
+  <div class="grid" id="grid"></div>
+
+  <footer>Book chapters open as official NCERT PDFs</footer>
+</div>
+
+<script>
+/* ==================================================================
+   ===============   E D I T   O N L Y   B E L O W   =================
+   ==================================================================
+
+   HOW TO EDIT — three rules, that's it:
+
+   1. Only change text between "quotation marks".
+   2. To add something: copy a whole line that ends in },
+      paste it right underneath, change the words in the quotes.
+   3. Leave a link as ""  if you don't have it yet. The page shows it
+      greyed out as "link coming soon" instead of breaking.
+
+   A book can be written in two ways:
+     - just a link      →  { title: "Curiosity", url: "https://..." }
+     - a chapter list   →  { title: "Malhar", chapters: [ ... ] }
+   ================================================================== */
+
+const CONFIG = {
+
+  studentName: "Pihu",
+  tagline: "Tap a class to join. Tap a subject to open the book.",
+
+
+  /* ---------- 1. ONLINE TUITION CLASSES (buttons at the top) ---------- */
+
+  classes: [
+    { name: "Hindi Class",           when: "Tuition", icon: "🗣️", color: "#e8590c", url: "https://meet.google.com/dzq-otzn-cyb" },
+    { name: "Science / Maths Class", when: "Tuition", icon: "🔬", color: "#2f7ed8", url: "https://meet.google.com/kyb-mmqv-axy" },
+    { name: "Marathi Class",         when: "Tuition", icon: "📗", color: "#0d9276", url: "https://meet.google.com/tmw-swew-xco" },
+    { name: "Music Class",           when: "Tuition", icon: "🎵", color: "#8b46c9", url: "https://student.spardhaschoolofmusic.com/" }
+  ],
+
+
+  /* ---------- 2. SUBJECTS → BOOKS → CHAPTERS ---------- */
+
+  subjects: [
+
+    { name: "Hindi", icon: "📖", color: "#e8590c", books: [
+
+        { title: "Malhar", chapters: [
+            { label: "★", title: "शुरुआत के पन्ने", url: "https://ncert.nic.in/textbook/pdf/hhml1ps.pdf" },
+            { label: "1",  title: "स्वदेश",              url: "https://ncert.nic.in/textbook/pdf/hhml101.pdf" },
+            { label: "2",  title: "दो गौरैया",            url: "https://ncert.nic.in/textbook/pdf/hhml102.pdf" },
+            { label: "3",  title: "एक आशीर्वाद",          url: "https://ncert.nic.in/textbook/pdf/hhml103.pdf" },
+            { label: "4",  title: "हरिद्वार",             url: "https://ncert.nic.in/textbook/pdf/hhml104.pdf" },
+            { label: "5",  title: "कबीर के दोहे",         url: "https://ncert.nic.in/textbook/pdf/hhml105.pdf" },
+            { label: "6",  title: "एक टोकरी भर मिट्टी",   url: "https://ncert.nic.in/textbook/pdf/hhml106.pdf" },
+            { label: "7",  title: "मत बाँधो",             url: "https://ncert.nic.in/textbook/pdf/hhml107.pdf" },
+            { label: "8",  title: "नए मेहमान",            url: "https://ncert.nic.in/textbook/pdf/hhml108.pdf" },
+            { label: "9",  title: "आदमी का अनुपात",       url: "https://ncert.nic.in/textbook/pdf/hhml109.pdf" },
+            { label: "10", title: "तरुण",                url: "https://ncert.nic.in/textbook/pdf/hhml110.pdf" }
+        ]},
+
+        { title: "Kahani Sanchay",          url: "https://drive.google.com/file/d/1rSsyVabbuworJYkEAvrJj_SLNQBGPGRU/view?usp=drive_link" },
+        { title: "Kahani Sanchay Workbook", url: "https://drive.google.com/file/d/1tI9Q-Wt1PBgGgzy42g2Q17-tQIQinkJO/view?usp=drive_link" },
+        { title: "Vyakaran",                url: "https://drive.google.com/file/d/1C1DRfZI71V3KvkhpsT-bsI24rwJUF3gL/view?usp=drive_link" }
+    ]},
+
+    { name: "Maths", icon: "🔢", color: "#2f7ed8", books: [
+
+        /* Part 2 (chapters 8-14) is not published on NCERT yet.
+           When it is, copy the lines below and change the PDF numbers. */
+        { title: "Ganita Prakash (Part 1)", chapters: [
+            { label: "★", title: "Starting Pages",                url: "https://ncert.nic.in/textbook/pdf/hegp1ps.pdf" },
+            { label: "1", title: "A Square and A Cube",           url: "https://ncert.nic.in/textbook/pdf/hegp101.pdf" },
+            { label: "2", title: "Power Play",                    url: "https://ncert.nic.in/textbook/pdf/hegp102.pdf" },
+            { label: "3", title: "A Story of Numbers",            url: "https://ncert.nic.in/textbook/pdf/hegp103.pdf" },
+            { label: "4", title: "Quadrilaterals",                url: "https://ncert.nic.in/textbook/pdf/hegp104.pdf" },
+            { label: "5", title: "Number Play",                   url: "https://ncert.nic.in/textbook/pdf/hegp105.pdf" },
+            { label: "6", title: "We Distribute, Yet Things Multiply", url: "https://ncert.nic.in/textbook/pdf/hegp106.pdf" },
+            { label: "7", title: "Proportional Reasoning – 1",    url: "https://ncert.nic.in/textbook/pdf/hegp107.pdf" }
+        ]}
+    ]},
+
+    { name: "Science", icon: "🔬", color: "#1a9e6c", books: [
+
+        { title: "Curiosity", chapters: [
+            { label: "★",  title: "Starting Pages",               url: "https://ncert.nic.in/textbook/pdf/hecu1ps.pdf" },
+            { label: "1",  title: "Exploring the Investigative World of Science", url: "https://ncert.nic.in/textbook/pdf/hecu101.pdf" },
+            { label: "2",  title: "The Invisible Living World: Beyond Our Naked Eye", url: "https://ncert.nic.in/textbook/pdf/hecu102.pdf" },
+            { label: "3",  title: "Health: The Ultimate Treasure", url: "https://ncert.nic.in/textbook/pdf/hecu103.pdf" },
+            { label: "4",  title: "Electricity: Magnetic and Heating Effects", url: "https://ncert.nic.in/textbook/pdf/hecu104.pdf" },
+            { label: "5",  title: "Exploring Forces",              url: "https://ncert.nic.in/textbook/pdf/hecu105.pdf" },
+            { label: "6",  title: "Pressure, Winds, Storms and Cyclones", url: "https://ncert.nic.in/textbook/pdf/hecu106.pdf" },
+            { label: "7",  title: "Particulate Nature of Matter",  url: "https://ncert.nic.in/textbook/pdf/hecu107.pdf" },
+            { label: "8",  title: "Nature of Matter: Elements, Compounds and Mixtures", url: "https://ncert.nic.in/textbook/pdf/hecu108.pdf" },
+            { label: "9",  title: "The Amazing World of Solutes, Solvents and Solutions", url: "https://ncert.nic.in/textbook/pdf/hecu109.pdf" },
+            { label: "10", title: "Light: Mirrors and Lenses",     url: "https://ncert.nic.in/textbook/pdf/hecu110.pdf" },
+            { label: "11", title: "Keeping Time with the Skies",   url: "https://ncert.nic.in/textbook/pdf/hecu111.pdf" },
+            { label: "12", title: "How Nature Works in Harmony",   url: "https://ncert.nic.in/textbook/pdf/hecu112.pdf" },
+            { label: "13", title: "Our Home: Earth, A Unique Life Sustaining Planet", url: "https://ncert.nic.in/textbook/pdf/hecu113.pdf" }
+        ]}
+    ]},
+
+    { name: "Social Science", icon: "🌏", color: "#d4a017", books: [
+
+        { title: "Exploring Society: India and Beyond", chapters: [
+            { label: "★", title: "Starting Pages",                 url: "https://ncert.nic.in/textbook/pdf/hees1ps.pdf" },
+            { label: "1", title: "Natural Resources and Their Use", url: "https://ncert.nic.in/textbook/pdf/hees101.pdf" },
+            { label: "2", title: "Reshaping India's Political Map", url: "https://ncert.nic.in/textbook/pdf/hees102.pdf" },
+            { label: "3", title: "The Rise of the Marathas",        url: "https://ncert.nic.in/textbook/pdf/hees103.pdf" },
+            { label: "4", title: "The Colonial Era in India",       url: "https://ncert.nic.in/textbook/pdf/hees104.pdf" },
+            { label: "5", title: "Universal Franchise and India's Electoral System", url: "https://ncert.nic.in/textbook/pdf/hees105.pdf" },
+            { label: "6", title: "The Parliamentary System: Legislature and Executive", url: "https://ncert.nic.in/textbook/pdf/hees106.pdf" },
+            { label: "7", title: "Factors of Production",           url: "https://ncert.nic.in/textbook/pdf/hees107.pdf" }
+        ]}
+    ]},
+
+    { name: "English", icon: "✏️", color: "#c2255c", books: [
+        { title: "Poorvi", url: "https://arjunschool.com/ncert-books/class-8/poorvi" }
+    ]},
+
+    { name: "Marathi", icon: "📗", color: "#0d9276", books: [
+
+        /* Google Drive folder with all the Marathi files:
+           https://drive.google.com/drive/u/0/folders/1ys-qnTzIo4L-gNfZuGElMwAUfbly8pKE
+           To fill a chapter: open the file in Drive → Share → Copy link → paste between the quotes. */
+        { title: "Sulabhbharati (भाग १)", chapters: [
+            { label: "1", title: "आम्ही चालवू हा पुढे वारसा (गीत)", by: "जगदीश खेबूडकर", url: "https://drive.google.com/file/d/1LUN1szymUxOa5HRs527nI5oPfWgtlXLp/view?usp=drive_link" },
+            { label: "2", title: "मी चित्रकार कसा झालो!",           by: "ल. म. कडू",        url: "" },
+            { label: "3", title: "प्रभात (कविता)",                  by: "किशोर बळी",        url: "" },
+            { label: "4", title: "आपण सारे एक",                    by: "प्रभा बैकर",        url: "" },
+            { label: "5", title: "घाटात घाट वरंधाघाट",              by: "महेश तेंडुलकर",     url: "" },
+            { label: "6", title: "आभाळाची आम्ही लेकरे (कविता)",      by: "वसंत बापट",        url: "" },
+            { label: "7", title: "नातवंडांस पत्र",                   by: "नंदू नाटेकर",       url: "" }
+        ]},
+
+        { title: "Marathi Workbook", url: "" }
+    ]},
+
+    { name: "Sanskrit", icon: "🕉️", color: "#9c5518", books: [
+        { title: "Deepakam", url: "https://arjunschool.com/ncert-books/class-8/deepakam" }
+    ]},
+
+    { name: "Art", icon: "🎨", color: "#7048e8", books: [
+        { title: "Kriti", url: "https://arjunschool.com/ncert-books/class-8/kriti" }
+    ]},
+
+    { name: "Sports & Health", icon: "⚽", color: "#0c8599", books: [
+        { title: "Khel Yatra", url: "https://arjunschool.com/ncert-books/class-8/khel-yatra" }
+    ]}
+
+  ]
+};
+
+/* ==================================================================
+   ===============   E D I T   O N L Y   A B O V E   =================
+   ================== nothing below needs changing ==================
+   ================================================================== */
+
+const $ = id => document.getElementById(id);
+const has = u => !!(u && u.trim());
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const countChapters = b => (b.chapters || []).filter(c => /^\d/.test(c.label || "")).length;
+
+$("title").textContent = "📚 " + CONFIG.studentName + "'s Books & Classes";
+$("subtitle").textContent = CONFIG.tagline;
+document.title = CONFIG.studentName + "'s Books & Classes";
+
+/* --- class join buttons --- */
+$("classes").innerHTML = CONFIG.classes.map(c => has(c.url)
+  ? `<a class="class-btn" style="background:${esc(c.color)}" href="${esc(c.url)}" target="_blank" rel="noopener">
+       <span class="ic">${c.icon}</span>
+       <span>${esc(c.name)}<span class="sub">${esc(c.when)} · tap to join</span></span></a>`
+  : `<span class="class-btn todo"><span class="ic">${c.icon}</span>
+       <span>${esc(c.name)}<span class="sub">link coming soon</span></span></span>`
+).join("");
+
+/* --- drill-down: subjects → books → chapters --- */
+let view = { level: "subjects", si: -1, bi: -1 };
+
+function tile({ icon, num, name, meta, url, color, onClick, todo }) {
+  const el = document.createElement(url ? "a" : "div");
+  el.className = "card" + (todo ? " todo" : "");
+  if (url) { el.href = url; el.target = "_blank"; el.rel = "noopener"; }
+  if (color) el.style.borderColor = color;
+  el.innerHTML =
+    (num ? `<span class="num">${esc(num)}</span>` : `<span class="ic">${icon || "📄"}</span>`) +
+    `<span class="nm">${esc(name)}</span>` +
+    (meta ? `<span class="meta">${esc(meta)}</span>` : "");
+  if (onClick) el.onclick = onClick;
+  return el;
+}
+
+function render() {
+  const grid = $("grid"), bar = $("bar");
+  grid.innerHTML = ""; bar.innerHTML = "";
+  $("home-classes").style.display = view.level === "subjects" ? "" : "none";
+
+  if (view.level === "subjects") {
+    bar.innerHTML = `<span class="crumb">My books</span>`;
+    CONFIG.subjects.forEach((s, i) => {
+      const only    = s.books.length === 1 ? s.books[0] : null;
+      const direct  = only && !only.chapters;                 // one book, plain link
+      const jump    = only && only.chapters;                  // one book, has chapters
+      grid.appendChild(tile({
+        icon: s.icon, name: s.name, color: s.color,
+        meta: jump   ? countChapters(only) + " chapters"
+            : direct ? only.title
+            :          s.books.length + " books",
+        url:  direct && has(only.url) ? only.url : null,
+        todo: direct && !has(only.url),
+        onClick: direct ? null : () => {
+          view = jump ? { level: "chapters", si: i, bi: 0 } : { level: "books", si: i, bi: -1 };
+          render();
+        }
+      }));
+    });
+    return;
+  }
+
+  const s = CONFIG.subjects[view.si];
+
+  if (view.level === "books") {
+    bar.innerHTML = `<button class="back">← Back</button><span class="crumb">${esc(s.icon + " " + s.name)}</span>`;
+    bar.querySelector(".back").onclick = () => { view = { level: "subjects" }; render(); };
+    s.books.forEach((b, j) => {
+      const ch = b.chapters && b.chapters.length;
+      grid.appendChild(tile({
+        icon: "📕", name: b.title, color: s.color,
+        meta: ch ? countChapters(b) + " chapters" : (has(b.url) ? "open book" : "link coming soon"),
+        url: !ch && has(b.url) ? b.url : null,
+        todo: !ch && !has(b.url),
+        onClick: ch ? () => { view = { level: "chapters", si: view.si, bi: j }; render(); } : null
+      }));
+    });
+    return;
+  }
+
+  const b = s.books[view.bi];
+  const upLevel = s.books.length > 1 ? "books" : "subjects";
+  bar.innerHTML = `<button class="back">← Back</button><span class="crumb">${esc(s.name + " · " + b.title)}</span>`;
+  bar.querySelector(".back").onclick = () => { view = { level: upLevel, si: view.si }; render(); };
+  b.chapters.forEach((c, k) => {
+    grid.appendChild(tile({
+      num: c.label || String(k + 1),
+      name: c.title, color: s.color,
+      url: has(c.url) ? c.url : null,
+      todo: !has(c.url),
+      meta: has(c.url) ? (c.by || "PDF") : "link coming soon"
+    }));
+  });
+}
+
+render();
+</script>
+</body>
+</html>
