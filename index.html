@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -75,11 +75,6 @@ footer{text-align:center;color:#9aa2b8;font-size:.8rem;margin-top:44px}
     <p id="subtitle"></p>
   </header>
 
-  <div id="home-classes">
-    <h2 class="section">Join a class</h2>
-    <div class="classes" id="classes"></div>
-  </div>
-
   <div class="bar" id="bar"></div>
   <div class="grid" id="grid"></div>
 
@@ -107,10 +102,10 @@ footer{text-align:center;color:#9aa2b8;font-size:.8rem;margin-top:44px}
 const CONFIG = {
 
   studentName: "Pihu",
-  tagline: "Tap a class to join. Tap a subject to open the book.",
+  tagline: "Tap Classes to join a class. Tap a subject to open the book.",
 
 
-  /* ---------- 1. ONLINE TUITION CLASSES (buttons at the top) ---------- */
+  /* ---------- 1. ONLINE TUITION CLASSES (inside the "Classes" card) ---------- */
 
   classes: [
     { name: "Hindi Class",           when: "Tuition", icon: "🗣️", color: "#e8590c", url: "https://meet.google.com/dzq-otzn-cyb" },
@@ -143,6 +138,24 @@ const CONFIG = {
         { title: "Kahani Sanchay",          url: "https://drive.google.com/file/d/1rSsyVabbuworJYkEAvrJj_SLNQBGPGRU/view?usp=drive_link" },
         { title: "Kahani Sanchay Workbook", url: "https://drive.google.com/file/d/1tI9Q-Wt1PBgGgzy42g2Q17-tQIQinkJO/view?usp=drive_link" },
         { title: "Vyakaran",                url: "https://drive.google.com/file/d/1C1DRfZI71V3KvkhpsT-bsI24rwJUF3gL/view?usp=drive_link" }
+    ]},
+
+    { name: "Marathi", icon: "📗", color: "#0d9276", books: [
+
+        /* Google Drive folder with all the Marathi files:
+           https://drive.google.com/drive/u/0/folders/1ys-qnTzIo4L-gNfZuGElMwAUfbly8pKE
+           To fill a chapter: open the file in Drive → Share → Copy link → paste between the quotes. */
+        { title: "Sulabhbharati (भाग १)", chapters: [
+            { label: "1", title: "आम्ही चालवू हा पुढे वारसा (गीत)", by: "जगदीश खेबूडकर", url: "https://drive.google.com/file/d/1LUN1szymUxOa5HRs527nI5oPfWgtlXLp/view?usp=drive_link" },
+            { label: "2", title: "मी चित्रकार कसा झालो!",           by: "ल. म. कडू",        url: "https://drive.google.com/file/d/1OLe69_hdOchXWnNUcGi4ivYtGoPs5ddn/view?usp=drive_link" },
+            { label: "3", title: "प्रभात (कविता)",                  by: "किशोर बळी",        url: "https://drive.google.com/file/d/1tsU9fywAKHiET_lEhbhjNwDdPny03FG3/view?usp=drive_link" },
+            { label: "4", title: "आपण सारे एक",                    by: "प्रभा बैकर",        url: "https://drive.google.com/file/d/16cFPCplks7XwoiGCFMNoxmIEyyXlASvR/view?usp=drive_link" },
+            { label: "5", title: "घाटात घाट वरंधाघाट",              by: "महेश तेंडुलकर",     url: "https://drive.google.com/file/d/1hmyyzViBh7rc5t6-kulDiaaw5Gt9fZAx/view?usp=drive_link" },
+            { label: "6", title: "आभाळाची आम्ही लेकरे (कविता)",      by: "वसंत बापट",        url: "https://drive.google.com/file/d/1mdUzWFCbdOMRpHwy9R7nf5awmSyhODPh/view?usp=drive_link" },
+            { label: "7", title: "नातवंडांस पत्र",                   by: "नंदू नाटेकर",       url: "https://drive.google.com/file/d/1CYSQlXHoeejLmqy-N1BmXZNlEtYXITC9/view?usp=drive_link" }
+        ]},
+
+        { title: "Marathi Workbook", url: "" }
     ]},
 
     { name: "Maths", icon: "🔢", color: "#2f7ed8", books: [
@@ -199,24 +212,6 @@ const CONFIG = {
         { title: "Poorvi", url: "https://arjunschool.com/ncert-books/class-8/poorvi" }
     ]},
 
-    { name: "Marathi", icon: "📗", color: "#0d9276", books: [
-
-        /* Google Drive folder with all the Marathi files:
-           https://drive.google.com/drive/u/0/folders/1ys-qnTzIo4L-gNfZuGElMwAUfbly8pKE
-           To fill a chapter: open the file in Drive → Share → Copy link → paste between the quotes. */
-        { title: "Sulabhbharati (भाग १)", chapters: [
-            { label: "1", title: "आम्ही चालवू हा पुढे वारसा (गीत)", by: "जगदीश खेबूडकर", url: "https://drive.google.com/file/d/1LUN1szymUxOa5HRs527nI5oPfWgtlXLp/view?usp=drive_link" },
-            { label: "2", title: "मी चित्रकार कसा झालो!",           by: "ल. म. कडू",        url: "" },
-            { label: "3", title: "प्रभात (कविता)",                  by: "किशोर बळी",        url: "" },
-            { label: "4", title: "आपण सारे एक",                    by: "प्रभा बैकर",        url: "" },
-            { label: "5", title: "घाटात घाट वरंधाघाट",              by: "महेश तेंडुलकर",     url: "" },
-            { label: "6", title: "आभाळाची आम्ही लेकरे (कविता)",      by: "वसंत बापट",        url: "" },
-            { label: "7", title: "नातवंडांस पत्र",                   by: "नंदू नाटेकर",       url: "" }
-        ]},
-
-        { title: "Marathi Workbook", url: "" }
-    ]},
-
     { name: "Sanskrit", icon: "🕉️", color: "#9c5518", books: [
         { title: "Deepakam", url: "https://arjunschool.com/ncert-books/class-8/deepakam" }
     ]},
@@ -246,15 +241,6 @@ $("title").textContent = "📚 " + CONFIG.studentName + "'s Books & Classes";
 $("subtitle").textContent = CONFIG.tagline;
 document.title = CONFIG.studentName + "'s Books & Classes";
 
-/* --- class join buttons --- */
-$("classes").innerHTML = CONFIG.classes.map(c => has(c.url)
-  ? `<a class="class-btn" style="background:${esc(c.color)}" href="${esc(c.url)}" target="_blank" rel="noopener">
-       <span class="ic">${c.icon}</span>
-       <span>${esc(c.name)}<span class="sub">${esc(c.when)} · tap to join</span></span></a>`
-  : `<span class="class-btn todo"><span class="ic">${c.icon}</span>
-       <span>${esc(c.name)}<span class="sub">link coming soon</span></span></span>`
-).join("");
-
 /* --- drill-down: subjects → books → chapters --- */
 let view = { level: "subjects", si: -1, bi: -1 };
 
@@ -274,10 +260,32 @@ function tile({ icon, num, name, meta, url, color, onClick, todo }) {
 function render() {
   const grid = $("grid"), bar = $("bar");
   grid.innerHTML = ""; bar.innerHTML = "";
-  $("home-classes").style.display = view.level === "subjects" ? "" : "none";
+
+  if (view.level === "classes") {
+    bar.innerHTML = `<button class="back">← Back</button><span class="crumb">🎥 Online classes</span>`;
+    bar.querySelector(".back").onclick = () => { view = { level: "subjects" }; render(); };
+    CONFIG.classes.forEach(c => {
+      grid.appendChild(tile({
+        icon: c.icon, name: c.name, color: c.color,
+        meta: has(c.url) ? "tap to join" : "link coming soon",
+        url: has(c.url) ? c.url : null,
+        todo: !has(c.url)
+      }));
+    });
+    return;
+  }
 
   if (view.level === "subjects") {
-    bar.innerHTML = `<span class="crumb">My books</span>`;
+    bar.innerHTML = `<span class="crumb">Classes & books</span>`;
+
+    // the Classes card always sits first
+    const liveCount = CONFIG.classes.filter(c => has(c.url)).length;
+    grid.appendChild(tile({
+      icon: "🎥", name: "Classes", color: "#5b5bd6",
+      meta: liveCount + " class links",
+      onClick: () => { view = { level: "classes" }; render(); }
+    }));
+
     CONFIG.subjects.forEach((s, i) => {
       const only    = s.books.length === 1 ? s.books[0] : null;
       const direct  = only && !only.chapters;                 // one book, plain link
