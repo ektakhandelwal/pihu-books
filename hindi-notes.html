@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>हिंदी नोट्स — पीहू</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📓</text></svg>">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Devanagari","Nirmala UI",Roboto,Arial,sans-serif;
+ background:#f4f6fb;color:#1c2233;line-height:1.75;padding:0 0 70px;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px}
+header{text-align:center;padding:26px 0 6px}
+header h1{font-size:1.85rem;font-weight:800;letter-spacing:-.4px}
+header p{color:#6b7590;font-size:.95rem;margin-top:4px}
+.sticky{position:sticky;top:0;z-index:20;background:rgba(244,246,251,.96);
+ backdrop-filter:blur(8px);border-bottom:1px solid #e2e7f2;padding:10px 0}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#q{flex:1;min-width:180px;padding:11px 14px;border:1px solid #dfe4f0;border-radius:12px;
+ font-size:1rem;background:#fff;font-family:inherit}
+#q:focus{outline:2px solid #5b5bd6;outline-offset:-1px}
+.btn{padding:10px 14px;border:1px solid #dfe4f0;background:#fff;border-radius:12px;
+ font-size:.87rem;font-weight:600;color:#3b4667;cursor:pointer;font-family:inherit;white-space:nowrap}
+.btn:hover{background:#eef1f8}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:9px 0 2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{padding:8px 14px;border-radius:999px;background:#fff;border:1px solid #dfe4f0;
+ font-size:.85rem;font-weight:600;white-space:nowrap;text-decoration:none;color:#3b4667;cursor:pointer}
+.chip:hover{background:#eef1f8}
+
+/* ---- collapsible chapter ---- */
+details{scroll-margin-top:124px}
+summary{cursor:pointer;list-style:none;user-select:none}
+summary::-webkit-details-marker{display:none}
+.chap{margin-top:16px}
+.chap>summary{display:flex;align-items:center;gap:11px;font-size:1.35rem;font-weight:800;
+ padding:15px 18px;border-radius:16px;background:#fff;box-shadow:0 2px 10px rgba(20,30,60,.07);
+ border-left:7px solid var(--c)}
+.chap>summary:hover{background:#fbfcff}
+.chap>summary .sub{margin-left:auto;font-size:.74rem;font-weight:600;color:#8a93ab;
+ text-transform:uppercase;letter-spacing:1px}
+.chev{flex:0 0 26px;height:26px;line-height:24px;text-align:center;border-radius:8px;
+ background:#eef1f8;color:#3b4667;font-size:.85rem;font-weight:800;transition:transform .18s ease}
+details[open]>summary .chev{transform:rotate(90deg)}
+.chapbody{padding-left:6px}
+
+/* ---- collapsible section ---- */
+.sec{background:#fff;border-radius:16px;margin-top:12px;box-shadow:0 2px 10px rgba(20,30,60,.07);
+ overflow:hidden}
+.sec>summary{display:flex;align-items:center;gap:10px;padding:15px 18px;
+ font-size:1.06rem;font-weight:800;color:var(--c)}
+.stitle{flex:1}
+.sec>summary:hover{background:#fbfcff}
+.sec[open]>summary{border-bottom:2px solid #eef1f8}
+.sec>summary .cnt{margin-left:auto;font-size:.72rem;font-weight:700;color:#8a93ab;
+ background:#f4f6fb;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.secbody{padding:16px 20px 20px}
+
+.qhead{font-weight:800;margin:16px 0 8px;color:#3b4667}
+.qrow{display:flex;gap:11px;padding:9px 0;border-bottom:1px dashed #eef1f8}
+.qrow:last-child{border-bottom:0}
+.qn{flex:0 0 30px;height:30px;line-height:30px;text-align:center;border-radius:50%;
+ background:#eef1f8;font-weight:800;font-size:.9rem;color:#3b4667}
+.qt{flex:1;font-size:1.04rem}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 12px 41px}
+.opts span{background:#f4f6fb;border:1px solid #e4e8f2;border-radius:9px;padding:5px 12px;font-size:.95rem}
+.passage{background:#fbfaf4;border-left:5px solid #e9c46a;border-radius:12px;
+ padding:14px 17px;margin:12px 0;font-size:1.04rem}
+.passage p+p{margin-top:11px}
+.letter{background:#f7fbf9;border:1px solid #d9ece5;border-radius:12px;padding:18px 20px;font-size:1.03rem}
+.letter p{margin:3px 0}
+.mean{padding:11px 0;border-bottom:1px dashed #eef1f8}
+.mean:last-child{border-bottom:0}
+.term{font-weight:800;font-size:1.06rem}
+.def{color:#4a5570;margin-top:3px}
+.def::before{content:"अर्थ — ";font-weight:700;color:#8a93ab}
+.qa{padding:13px 0;border-bottom:1px dashed #eef1f8}
+.qa:last-child{border-bottom:0}
+.qa .q{font-weight:700;font-size:1.05rem}
+.qa .a{display:none;margin-top:9px;padding:11px 15px;background:#f2f8f5;
+ border-left:5px solid #1a9e6c;border-radius:10px}
+.qa.open .a{display:block}
+.rev{margin-top:7px;padding:6px 13px;border:1px solid #cfe6dc;background:#f2f8f5;
+ border-radius:9px;font-size:.83rem;font-weight:700;color:#0d7a56;cursor:pointer;font-family:inherit}
+.qa.open .rev{display:none}
+mark{background:#ffe58a;border-radius:3px;padding:0 2px}
+.hide{display:none}
+#none{text-align:center;color:#8a93ab;padding:30px;display:none}
+footer{text-align:center;color:#9aa2b8;font-size:.8rem;margin-top:44px}
+@media print{
+ .sticky,.rev,.chev{display:none}
+ .qa .a{display:block}
+ details>.chapbody,details>.secbody{display:block !important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>📓 हिंदी नोट्स</h1>
+    <p>पीहू · कक्षा 8 · मार्च – जुलाई 2026</p>
+  </header>
+</div>
+<div class="sticky"><div class="wrap">
+  <div class="tools">
+    <input id="q" type="search" placeholder="कुछ भी खोजें — शब्द, प्रश्न, पाठ…">
+    <button class="btn" id="exp">सब खोलें</button>
+    <button class="btn" id="all">सभी उत्तर छिपाएँ</button>
+  </div>
+  <div class="chips"><button class="chip" data-go="sangya">📘 संज्ञा</button><button class="chip" data-go="anjana">📖 अनजाना चेहरा</button><button class="chip" data-go="gadyansh">📝 अपठित गद्यांश</button><button class="chip" data-go="patra">✉️ औपचारिक पत्र</button><button class="chip" data-go="paper">🧾 प्रश्न पत्र 1</button><button class="chip" data-go="ashirwad">🌟 एक आशीर्वाद</button></div>
+</div></div>
+<div class="wrap">
+  <details class="chap" id="sangya" style="--c:#e8590c"><summary><span class="chev">&#9654;</span><span>📘</span>संज्ञा<span class="sub">Noun · मार्च · 4 भाग</span></summary><div class="chapbody"><details class="sec" id="s0" style="--c:#e8590c"><summary><span class="chev">&#9654;</span><span class="stitle">1. व्यक्तिवाचक संज्ञा (Proper Noun)</span><span class="cnt">5 प्रश्न</span></summary><div class="secbody"><div class="qrow"><span class="qn">1</span><span class="qt">__________ भारत के पहले राष्ट्रपति थे.</span></div><div class="opts"><span>(A) डॉक्टर</span><span>(B) डॉ. राजेंद्र प्रसाद</span><span>(C) लड़का</span></div><div class="qrow"><span class="qn">2</span><span class="qt">हमारे स्कूल की यात्रा __________ को देखने के लिए है.</span></div><div class="opts"><span>(A) ताजमहल</span><span>(B) फूल</span><span>(C) पेड़</span></div><div class="qrow"><span class="qn">3</span><span class="qt">__________ को विश्व क्रिकेट में सबसे महान खिलाड़ी माना जाता है.</span></div><div class="opts"><span>(A) विराट कोहली</span><span>(B) बच्चा</span><span>(C) जानवर</span></div><div class="qrow"><span class="qn">4</span><span class="qt">बच्चे गंगा नदी के किनारे खेल रहे थे, और हमने __________ का दर्शन किया.</span></div><div class="opts"><span>(A) दिल्ली</span><span>(B) काशी</span><span>(C) हिमालय</span></div><div class="qrow"><span class="qn">5</span><span class="qt">__________ ने हिंदी साहित्य में अमूल्य योगदान दिया.</span></div><div class="opts"><span>(A) स्कूल</span><span>(B) मुंशी प्रेमचंद</span><span>(C) किताब</span></div></div></details><details class="sec" id="s1" style="--c:#e8590c"><summary><span class="chev">&#9654;</span><span class="stitle">2. जातिवाचक संज्ञा (Common Noun)</span><span class="cnt">5 प्रश्न</span></summary><div class="secbody"><div class="qrow"><span class="qn">6</span><span class="qt">हर गाँव में एक __________ होता है.</span></div><div class="opts"><span>(A) डॉक्टर</span><span>(B) दिल्ली</span><span>(C) गंगा</span></div><div class="qrow"><span class="qn">7</span><span class="qt">पेड़ के नीचे कई __________ खेल रहे थे.</span></div><div class="opts"><span>(A) बच्चे</span><span>(B) ताजमहल</span><span>(C) विराट</span></div><div class="qrow"><span class="qn">8</span><span class="qt">बाजार में नए __________ बिक रहे हैं.</span></div><div class="opts"><span>(A) डॉ. शर्मा</span><span>(B) शहर</span><span>(C) फल</span></div><div class="qrow"><span class="qn">9</span><span class="qt">जंगल में अनेक प्रकार के __________ रहते हैं.</span></div><div class="opts"><span>(A) जानवर</span><span>(B) हिमालय</span><span>(C) दिल्ली</span></div><div class="qrow"><span class="qn">10</span><span class="qt">पुस्तकालय में कई __________ मिलते हैं.</span></div><div class="opts"><span>(A) किताबें</span><span>(B) मुंशी प्रेमचंद</span><span>(C) राम</span></div></div></details><details class="sec" id="s2" style="--c:#e8590c"><summary><span class="chev">&#9654;</span><span class="stitle">3. भाववाचक संज्ञा (Abstract Noun)</span><span class="cnt">5 प्रश्न</span></summary><div class="secbody"><div class="qrow"><span class="qn">11</span><span class="qt">सच्चाई और __________ जीवन में महत्वपूर्ण हैं.</span></div><div class="opts"><span>(A) ईमानदारी</span><span>(B) राम</span><span>(C) दिल्ली</span></div><div class="qrow"><span class="qn">12</span><span class="qt">परीक्षा में अच्छे अंक पाने के लिए __________ आवश्यक है.</span></div><div class="opts"><span>(A) धैर्य</span><span>(B) मेहनत</span><span>(C) किताब</span></div><div class="qrow"><span class="qn">13</span><span class="qt">उसने अपने मित्र की मदद कर के __________ दिखाई.</span></div><div class="opts"><span>(A) गंगा</span><span>(B) सहानुभूति</span><span>(C) स्कूल</span></div><div class="qrow"><span class="qn">14</span><span class="qt">माता-पिता के प्रति बच्चों में __________ होना चाहिए.</span></div><div class="opts"><span>(A) आदर</span><span>(B) लड़का</span><span>(C) हिमालय</span></div><div class="qrow"><span class="qn">15</span><span class="qt">कठिन समय में __________ ही सफलता दिलाती है.</span></div><div class="opts"><span>(A) खुशी</span><span>(B) धैर्य</span><span>(C) सीता</span></div></div></details><details class="sec" id="s3" style="--c:#e8590c"><summary><span class="chev">&#9654;</span><span class="stitle">संज्ञा अभ्यास — संज्ञा का भेद भी बताइए</span><span class="cnt">15 प्रश्न</span></summary><div class="secbody"><div class="qrow"><span class="qn">1</span><span class="qt">______ भारत के प्रथम प्रधानमंत्री थे।</span></div><div class="opts"><span>(क) विद्यालय</span><span>(ख) जवाहरलाल नेहरू</span><span>(ग) गंगा</span></div><div class="qrow"><span class="qn">2</span><span class="qt">बगीचे में एक ______ बैठा था।</span></div><div class="opts"><span>(क) हिमालय</span><span>(ख) मोहन</span><span>(ग) पक्षी</span></div><div class="qrow"><span class="qn">3</span><span class="qt">हमें हमेशा ______ से काम लेना चाहिए।</span></div><div class="opts"><span>(क) मेज</span><span>(ख) लड़का</span><span>(ग) ईमानदारी</span></div><div class="qrow"><span class="qn">4</span><span class="qt">मैंने ______ का किला देखा।</span></div><div class="opts"><span>(क) पुस्तक</span><span>(ख) दिल्ली</span><span>(ग) लड़का</span></div><div class="qrow"><span class="qn">5</span><span class="qt">मेरे पिता एक ______ हैं।</span></div><div class="opts"><span>(क) रामायण</span><span>(ख) शिक्षक</span><span>(ग) दिल्ली</span></div><div class="qrow"><span class="qn">6</span><span class="qt">______ मनुष्य का सबसे बड़ा गुण है।</span></div><div class="opts"><span>(क) पहाड़</span><span>(ख) दया</span><span>(ग) पुस्तक</span></div><div class="qrow"><span class="qn">7</span><span class="qt">______ एक प्रसिद्ध वैज्ञानिक थे।</span></div><div class="opts"><span>(क) शिक्षक</span><span>(ख) नदी</span><span>(ग) अब्दुल कलाम</span></div><div class="qrow"><span class="qn">8</span><span class="qt">सड़क पर कई ______ दौड़ रही थीं।</span></div><div class="opts"><span>(क) ताजमहल</span><span>(ख) गाड़ियाँ</span><span>(ग) गंगा</span></div><div class="qrow"><span class="qn">9</span><span class="qt">सैनिक ने बड़ी ______ दिखाई।</span></div><div class="opts"><span>(क) बच्चा</span><span>(ख) बहादुरी</span><span>(ग) विद्यालय</span></div><div class="qrow"><span class="qn">10</span><span class="qt">हम छुट्टियों में ______ गए थे।</span></div><div class="opts"><span>(क) मुंबई</span><span>(ख) खिलौना</span><span>(ग) पर्वत</span></div><div class="qrow"><span class="qn">11</span><span class="qt">______ हमें ज्ञान देता है।</span></div><div class="opts"><span>(क) रवि</span><span>(ख) भारत</span><span>(ग) पुस्तक</span></div><div class="qrow"><span class="qn">12</span><span class="qt">अधिक ______ से सफलता मिलती है।</span></div><div class="opts"><span>(क) आम</span><span>(ख) मेहनत</span><span>(ग) नदी</span></div><div class="qrow"><span class="qn">13</span><span class="qt">______ एक पवित्र नदी है।</span></div><div class="opts"><span>(क) बाज़ार</span><span>(ख) गंगा</span><span>(ग) बच्चा</span></div><div class="qrow"><span class="qn">14</span><span class="qt">खेत में एक ______ काम कर रहा था।</span></div><div class="opts"><span>(क) चेन्नई</span><span>(ख) किसान</span><span>(ग) यमुना</span></div><div class="qrow"><span class="qn">15</span><span class="qt">हमें अपने बड़ों का ______ करना चाहिए।</span></div><div class="opts"><span>(क) बाजार</span><span>(ख) सम्मान</span><span>(ग) कमरा</span></div></div></details></div></details><details class="chap" id="anjana" style="--c:#c2255c"><summary><span class="chev">&#9654;</span><span>📖</span>अनजाना चेहरा<span class="sub">पाठ के प्रश्न · 13 मई · 1 भाग</span></summary><div class="chapbody"><details class="sec" id="s4" style="--c:#c2255c"><summary><span class="chev">&#9654;</span><span class="stitle">अनजाना चेहरा — प्रश्न</span><span class="cnt">14 प्रश्न</span></summary><div class="secbody"><div class="qrow"><span class="qn">1</span><span class="qt">रेगिसतान में दोपहर के समय मौसम कैसा था? चारों तरफ क्या था?</span></div><div class="qrow"><span class="qn">2</span><span class="qt">लेखक को प्यास क्यों लगी थी?</span></div><div class="qrow"><span class="qn">3</span><span class="qt">रेगिस्तान में पेड़ देखकर लेखक को कैसा लगा?</span></div><div class="qrow"><span class="qn">•</span><span class="qt">गाँव का नाम क्या था?</span></div><div class="qrow"><span class="qn">4</span><span class="qt">लेखक ने सबसे पहले क्या माँगा?</span></div><div class="qrow"><span class="qn">5</span><span class="qt">प्रधान जी ने लेखक की सहायता कैसे की?</span></div><div class="qrow"><span class="qn">6</span><span class="qt">लेखक को किस बात पर सबसे अधिक आश्चर्य हुआ?</span></div><div class="qrow"><span class="qn">7</span><span class="qt">रेगिस्तान के बीच गाँव देखकर लेखक क्यों चकित था?</span></div><div class="qrow"><span class="qn">8</span><span class="qt">प्रधान जी ने गाँव के बारे में क्या बताया?</span></div><div class="qrow"><span class="qn">9</span><span class="qt">पहले वहाँ क्या हुआ करता था?</span></div><div class="qrow"><span class="qn">10</span><span class="qt">युद्ध के कारण गाँव पर क्या प्रभाव पड़ा?</span></div><div class="qrow"><span class="qn">11</span><span class="qt">“मानव का श्रम” से प्रधान जी का क्या आशय था?</span></div><div class="qrow"><span class="qn">12</span><span class="qt">कहानी से हमें क्या प्रेरणा मिलती है?</span></div><div class="qrow"><span class="qn">13</span><span class="qt">गाँव का नाम क्या था?</span></div></div></details></div></details><details class="chap" id="gadyansh" style="--c:#2f7ed8"><summary><span class="chev">&#9654;</span><span>📝</span>अपठित गद्यांश<span class="sub">5 गद्यांश · 5 भाग</span></summary><div class="chapbody"><details class="sec" id="s5" style="--c:#2f7ed8"><summary><span class="chev">&#9654;</span><span class="stitle">अपठित गद्यांश – 1</span><span class="cnt">5 प्रश्न</span></summary><div class="secbody"><div class="passage"><p>रवि अपने दोस्तों के साथ पिकनिक मनाने गया। वहाँ एक सुंदर बगीचा था। बगीचे में रंग-बिरंगे फूल खिले थे और पक्षी मधुर आवाज़ में गा रहे थे। बच्चों ने खेल खेले और पेड़ों की छाया में बैठकर खाना खाया। रवि ने अपने दोस्तों से कहा कि हमें प्रकृति की रक्षा करनी चाहिए। सभी ने बगीचे को साफ रखा और कूड़ा डस्टबिन में डाला। शाम होने पर सभी खुशी-खुशी घर लौट आए।</p></div><h4 class="qhead">प्रश्न</h4><div class="qrow"><span class="qn">1</span><span class="qt">रवि कहाँ गया था?</span></div><div class="qrow"><span class="qn">2</span><span class="qt">बगीचे में क्या खिले थे?</span></div><div class="qrow"><span class="qn">3</span><span class="qt">पक्षी कैसी आवाज़ में गा रहे थे?</span></div><div class="qrow"><span class="qn">4</span><span class="qt">रवि ने अपने दोस्तों से क्या कहा?</span></div><div class="qrow"><span class="qn">5</span><span class="qt">बच्चे शाम को कैसे घर लौटे?</span></div></div></details><details class="sec" id="s6" style="--c:#2f7ed8"><summary><span class="chev">&#9654;</span><span class="stitle">अपठित गद्यांश – 2</span><span class="cnt">5 प्रश्न</span></summary><div class="secbody"><div class="passage"><p>रीमा रोज़ सुबह जल्दी उठती है। वह सबसे पहले अपने पौधों में पानी डालती है। उसके घर में कई तरह के फूलों के पौधे हैं। रीमा को बागवानी करना बहुत पसंद है। एक दिन उसकी अध्यापिका ने स्कूल में “स्वच्छ पर्यावरण” पर भाषण देने को कहा। रीमा ने पेड़-पौधों के महत्व के बारे में सुंदर भाषण दिया। सभी बच्चों और अध्यापिका ने उसकी बहुत प्रशंसा की।</p></div><h4 class="qhead">प्रश्न</h4><div class="qrow"><span class="qn">1</span><span class="qt">रीमा रोज़ कब उठती है?</span></div><div class="qrow"><span class="qn">2</span><span class="qt">वह सबसे पहले क्या करती है?</span></div><div class="qrow"><span class="qn">3</span><span class="qt">रीमा को क्या करना पसंद है?</span></div><div class="qrow"><span class="qn">4</span><span class="qt">अध्यापिका ने किस विषय पर भाषण देने को कहा?</span></div><div class="qrow"><span class="qn">5</span><span class="qt">रीमा की प्रशंसा किसने की?</span></div></div></details><details class="sec" id="s7" style="--c:#2f7ed8"><summary><span class="chev">&#9654;</span><span class="stitle">अपठित गद्यांश – 3 (अनजाना चेहरा)</span><span class="cnt">6 प्रश्न</span></summary><div class="secbody"><div class="passage"><p>लेखक रास्ता भूल गया था। दोपहर का समय था और चारों ओर रेगिस्तान फैला हुआ था। प्यास के कारण उसकी हालत बहुत खराब हो रही थी। तभी उसे दूर पेड़ दिखाई दिए। वहाँ पहुँचने पर उसे एक गाँव मिला जिसका नाम फूलपुरा था। गाँव के प्रधान ने उसका स्वागत किया और उसे ठंडी लस्सी पीने को दी। लेखक यह देखकर हैरान था कि रेगिस्तान के बीच गाँव में बिजली और ठंडा कूलर भी था। प्रधान जी ने बताया कि यह सब एक व्यक्ति की मेहनत का परिणाम है।</p></div><h4 class="qhead">प्रश्न</h4><div class="qrow"><span class="qn">1</span><span class="qt">लेखक कहाँ भटक गया था?</span></div><div class="qrow"><span class="qn">2</span><span class="qt">लेखक की हालत खराब क्यों हो रही थी?</span></div><div class="qrow"><span class="qn">3</span><span class="qt">लेखक को दूर क्या दिखाई दिया?</span></div><div class="qrow"><span class="qn">4</span><span class="qt">गाँव का नाम क्या था?</span></div><div class="qrow"><span class="qn">5</span><span class="qt">प्रधान जी ने लेखक को पीने के लिए क्या दिया?</span></div><div class="qrow"><span class="qn">6</span><span class="qt">प्रधान जी के अनुसार गाँव की तरक्की किसका परिणाम थी?</span></div></div></details><details class="sec" id="s8" style="--c:#2f7ed8"><summary><span class="chev">&#9654;</span><span class="stitle">अपठित गद्यांश – 4</span><span class="cnt"></span></summary><div class="secbody"><div class="passage"><p>हालाँकि गर्मी और लू के कारण अक्सर पेड़ झुलस जाते, लेकिन वे बिना किसी बात की परवाह किए अपने काम में लगे रहते। धीरे-धीरे उनकी मेहनत रंग लाई और कुछ ही दिनों में आस-पास का इलाका पेड़ों से भर गया। गाँव का उजाड़पन समाप्त हो गया और वहाँ की रौनक लौट आई। अब यह गाँव रेगिस्तानी इलाके में नखलिस्तान जैसा दिखाई देने लगा। जो भी इसे देखता, इसके आकर्षण से प्रभावित हो जाता।</p></div><div class="passage"><p>एक दिन गाँव के पास से एक काफ़िला गुज़रा। वहाँ रहने वाले लोग अकाल के कारण अपनी बस्ती छोड़कर जा रहे थे। जब उनकी नज़र इस हरे-भरे गाँव पर पड़ी, तो वे यहीं बस गए। उन्होंने पेड़ लगाने वाले बाबा से अनुमति ली और गाँव को फिर से आबाद कर दिया।</p></div><div class="passage"><p>इस गाँव का इतिहास जानकर लेखक को आश्चर्य और खुशी दोनों हुए। लगभग पच्चीस वर्ष पहले यह गाँव साधारण-सा था, जहाँ बहुत कम पेड़ थे। लेकिन अब यह किसी सुंदर बगीचे जैसा लगने लगा था। यह सब उस महान व्यक्ति की मेहनत का परिणाम था, जिसका नाम तक कोई नहीं जानता था।</p></div><h4 class="qhead">प्रश्न</h4><p>गर्मी और लू का पेड़ों पर क्या प्रभाव पड़ता था?</p><p>गाँव का उजाड़पन कैसे समाप्त हुआ?</p><p>गाँव को किसके समान बताया गया है?</p><p>काफ़िले के लोग अपनी बस्ती क्यों छोड़ रहे थे?</p><p>काफ़िले के लोग अंत में कहाँ बस गए?</p><p>लेखक को गाँव का इतिहास जानकर कैसा महसूस हुआ?</p><p>पहले गाँव की स्थिति कैसी थी?</p><p>गाँव के सुंदर बनने का श्रेय किसे दिया गया है?</p></div></details><details class="sec" id="s9" style="--c:#2f7ed8"><summary><span class="chev">&#9654;</span><span class="stitle">अपठित गद्यांश – 5</span><span class="cnt">6 प्रश्न</span></summary><div class="secbody"><p>सूखी घास और रूई के फाहे और धागे और थिगलियाँ लाठी के सिरे पर लिपटने लगीं। तभी सहसा जोर की आवाज आई, “चीं-चीं, चीं-चीं!!”</p><div class="passage"><p>पिताजी के हाथ ठिठक गए। यह क्या? क्या गौरैयाँ लौट आई हैं? मैंने झट से बाहर की ओर देखा। दोनों गौरैयाँ बाहर दीवार पर गुमसुम बैठी थीं।</p></div><div class="passage"><p>“चीं-चीं, चीं-चीं!” फिर आवाज आई। मैंने ऊपर देखा। पंखे के गोले के ऊपर से नन्हीं-नन्हीं गौरैयाँ सिर निकाल नीचे की ओर देख रही थीं और चीं-चीं किए जा रही थीं। अभी भी पिताजी के हाथ में लाठी थी और उस पर लिपटा घोंसले का बहुत-सा हिस्सा था।</p></div><div class="passage"><p>मैं अवाक उनकी ओर देखता रहा। फिर मैंने देखा, पिताजी स्टूल से नीचे उतर आए हैं और घोंसले के तिनकों में से लाठी निकालकर उन्होंने लाठी को एक ओर रख दिया है। माँ ने सभी दरवाजे खोल दिए।</p></div><div class="passage"><p>उनके माँ-बाप झट से उड़कर अंदर आ गए और चीं-चीं करते उनसे जा मिले और उनकी नन्हीं-नन्हीं चोंचों में चुग्गा डालने लगे। माँ-पिताजी और मैं उनकी ओर देखते रह गए। कमरे में फिर से शोर होने लगा था, पर अबकी बार पिताजी उनकी ओर देखकर केवल मुस्कराते रहे।</p></div><h4 class="qhead">प्रश्न</h4><div class="qrow"><span class="qn">1</span><span class="qt">लाठी के सिरे पर क्या-क्या लिपटने लगा था?</span></div><div class="qrow"><span class="qn">2</span><span class="qt">पिताजी के हाथ अचानक क्यों ठिठक गए?</span></div><div class="qrow"><span class="qn">3</span><span class="qt">नन्हीं गौरैयाँ कहाँ बैठी थीं?</span></div><div class="qrow"><span class="qn">4</span><span class="qt">पिताजी ने घोंसले के साथ क्या किया?</span></div><div class="qrow"><span class="qn">5</span><span class="qt">माँ ने क्या किया?</span></div><div class="qrow"><span class="qn">6</span><span class="qt">अंत में पिताजी गौरैयों को देखकर क्या करने लगे?</span></div><p>—-   औपचारिक पत्र -1  —-----</p></div></details></div></details><details class="chap" id="patra" style="--c:#0d9276"><summary><span class="chev">&#9654;</span><span>✉️</span>औपचारिक पत्र<span class="sub">नमूना पत्र · 1 भाग</span></summary><div class="chapbody"><details class="sec" id="s10" style="--c:#0d9276"><summary><span class="chev">&#9654;</span><span class="stitle">बैंक मैनेजर को धन्यवाद पत्र</span><span class="cnt"></span></summary><div class="secbody"><div class="letter"><p>सेवा में,</p><p>बैंक मैनेजर जी</p><p>स्टेट बैंक ऑफ इंडिया,</p><p>लुधियाना।</p><p>विषय: सहायता के लिए धन्यवाद।</p><p>महोदय,</p><p>सविनय निवेदन है कि मैं आपके बैंक का ग्राहक हूँ। पिछले सप्ताह मुझे अपने खाते से संबंधित एक समस्या आ गई थी। आपने और आपके कर्मचारियों ने मेरी समस्या को बहुत जल्दी और विनम्रता से हल किया।</p><p>आपकी सहायता और अच्छे व्यवहार के लिए मैं आपका हृदय से धन्यवाद करता हूँ। आपके सहयोग से मुझे बहुत सुविधा हुई।</p><p>आशा है कि भविष्य में भी ग्राहकों को इसी प्रकार सहायता मिलती रहेगी।</p><p>धन्यवाद।</p><p>भवदीय,</p><p>राहुल शर्मा</p><p>कक्षा – 7</p><p>दिनांक – 07 मई 2026</p></div></div></details></div></details><details class="chap" id="paper" style="--c:#7048e8"><summary><span class="chev">&#9654;</span><span>🧾</span>प्रश्न पत्र 1<span class="sub">27 मई 2026 · 4 भाग</span></summary><div class="chapbody"><details class="sec" id="s11" style="--c:#7048e8"><summary><span class="chev">&#9654;</span><span class="stitle">प्रश्न 1 : संज्ञा — रिक्त स्थान भरिए</span><span class="cnt">5 प्रश्न</span></summary><div class="secbody"><p>सही विकल्प चुनकर रिक्त स्थान भरिए —</p><div class="qrow"><span class="qn">1</span><span class="qt">______ भारत की राजधानी है।</span></div><div class="opts"><span>(क) ईमानदारी</span><span>(ख) दिल्ली</span><span>(ग) शिक्षक</span></div><div class="qrow"><span class="qn">2</span><span class="qt">सैनिक ने बड़ी ______ दिखाई।</span></div><div class="opts"><span>(क) बहादुरी</span><span>(ख) पुस्तक</span><span>(ग) मुंबई</span></div><div class="qrow"><span class="qn">3</span><span class="qt">मेरे चाचा एक ______ हैं।</span></div><div class="opts"><span>(क) गंगा</span><span>(ख) डॉक्टर</span><span>(ग) ताजमहल</span></div><div class="qrow"><span class="qn">4</span><span class="qt">______ एक पवित्र नदी है।</span></div><div class="opts"><span>(क) किसान</span><span>(ख) विद्यालय</span><span>(ग) गंगा</span></div><div class="qrow"><span class="qn">5</span><span class="qt">हमें हमेशा ______ से काम लेना चाहिए।</span></div><div class="opts"><span>(क) लड़का</span><span>(ख) मेज</span><span>(ग) सच्चाई</span></div></div></details><details class="sec" id="s12" style="--c:#7048e8"><summary><span class="chev">&#9654;</span><span class="stitle">प्रश्न 2 : संधि कीजिए</span><span class="cnt">9 प्रश्न</span></summary><div class="secbody"><div class="qrow"><span class="qn">•</span><span class="qt">विद्या + आलय = ______</span></div><div class="qrow"><span class="qn">•</span><span class="qt">धरा+उर्मि</span></div><div class="qrow"><span class="qn">•</span><span class="qt">नव+ उत्सव</span></div><div class="qrow"><span class="qn">•</span><span class="qt">सप्त+ऋषि</span></div><div class="qrow"><span class="qn">•</span><span class="qt">प्रभा+. इंद्र</span></div><div class="qrow"><span class="qn">•</span><span class="qt">भू+उर्जा</span></div><div class="qrow"><span class="qn">•</span><span class="qt">योगी+ ईशवर</span></div><div class="qrow"><span class="qn">•</span><span class="qt">देवी+अर्पण</span></div><div class="qrow"><span class="qn">•</span><span class="qt">देवी+आलय</span></div></div></details><details class="sec" id="s13" style="--c:#7048e8"><summary><span class="chev">&#9654;</span><span class="stitle">प्रश्न 3 : गद्यांश पढ़कर उत्तर दीजिए</span><span class="cnt">7 प्रश्न</span></summary><div class="secbody"><div class="passage"><p>रवि एक मेहनती छात्र था। वह प्रतिदिन समय पर विद्यालय जाता था और मन लगाकर पढ़ाई करता था। उसके शिक्षक भी उससे बहुत प्रसन्न रहते थे। एक दिन विद्यालय में भाषण प्रतियोगिता आयोजित हुई। रवि ने पूरे आत्मविश्वास के साथ भाग लिया और प्रथम स्थान प्राप्त किया। उसके माता-पिता और शिक्षक उसकी सफलता से बहुत खुश हुए। रवि का मानना था कि मेहनत और आत्मविश्वास से हर लक्ष्य प्राप्त किया जा सकता है। वह अपने मित्रों की भी पढ़ाई में सहायता करता था। सभी छात्र रवि के अच्छे व्यवहार और विनम्रता की प्रशंसा करते थे।</p></div><h4 class="qhead">प्रश्न</h4><div class="qrow"><span class="qn">1</span><span class="qt">रवि कैसा छात्र था?</span></div><div class="qrow"><span class="qn">2</span><span class="qt">रवि प्रतिदिन कहाँ जाता था?</span></div><div class="qrow"><span class="qn">3</span><span class="qt">शिक्षक रवि से क्यों प्रसन्न थे?</span></div><div class="qrow"><span class="qn">4</span><span class="qt">विद्यालय में कौन-सी प्रतियोगिता हुई?</span></div><div class="qrow"><span class="qn">5</span><span class="qt">रवि ने प्रतियोगिता में कौन-सा स्थान प्राप्त किया?</span></div><div class="qrow"><span class="qn">6</span><span class="qt">रवि अपने मित्रों की कैसे सहायता करता था?</span></div><div class="qrow"><span class="qn">7</span><span class="qt">सभी छात्र रवि की किस बात की प्रशंसा करते थे?</span></div></div></details><details class="sec" id="s14" style="--c:#7048e8"><summary><span class="chev">&#9654;</span><span class="stitle">प्रश्न 4 : औपचारिक पत्र लिखिए</span><span class="cnt">4 प्रश्न</span></summary><div class="secbody"><div class="qrow"><span class="qn">•</span><span class="qt">निम्नलिखित विषयों में से किसी एक पर औपचारिक पत्र लिखिए —</span></div><div class="qrow"><span class="qn">•</span><span class="qt">विद्यालय के प्रधानाचार्य को अवकाश हेतु प्रार्थना पत्र।</span></div><div class="qrow"><span class="qn">•</span><span class="qt">अथवा</span></div><div class="qrow"><span class="qn">•</span><span class="qt">नगर निगम अधिकारी को अपने क्षेत्र की सफाई व्यवस्था सुधारने हेतु पत्र।</span></div></div></details></div></details><details class="chap" id="ashirwad" style="--c:#d4a017"><summary><span class="chev">&#9654;</span><span>🌟</span>एक आशीर्वाद<span class="sub">कविता · जुलाई 2026 · 3 भाग</span></summary><div class="chapbody"><details class="sec" id="s15" style="--c:#d4a017"><summary><span class="chev">&#9654;</span><span class="stitle">एक आशीर्वाद — आसान अर्थ</span><span class="cnt">7 पंक्तियाँ</span></summary><div class="secbody"><div class="mean"><p class="term">भावना की गोद से उतरकर</p><p class="def">केवल सपने देखने के बजाय वास्तविक जीवन को समझना।</p></div><div class="mean"><p class="term">जल्दी पृथ्वी पर चलना सीखें</p><p class="def">जल्दी से असली जीवन की कठिनाइयों को समझकर आगे बढ़ना सीखो।</p></div><div class="mean"><p class="term">चाँद-तारों-सी अप्राप्य सच्चाइयों के लिए रुकना-मचलना सीखें</p><p class="def">बड़े सपनों को पाने के लिए मेहनत और कोशिश करो।</p></div><div class="mean"><p class="term">हँसें, मुस्कराएँ, गाएँ</p><p class="def">हमेशा खुश रहो, मुस्कुराओ और खुशी से जीवन जियो।</p></div><div class="mean"><p class="term">हर दीये की रोशनी देखकर ललचाएँ</p><p class="def">दूसरों की सफलता देखकर हमें भी आगे बढ़ने की इच्छा होनी चाहिए।</p></div><div class="mean"><p class="term">उँगली जलाएँ</p><p class="def">अपने लक्ष्य को पाने के लिए मेहनत करने और कठिनाइयों का सामना करने से मत डरो।</p></div><div class="mean"><p class="term">अपने पाँव पर खड़े हो</p><p class="def">अपने काम खुद करना और आत्मनिर्भर बनना।</p></div></div></details><details class="sec" id="s16" style="--c:#d4a017"><summary><span class="chev">&#9654;</span><span class="stitle">एक आशीर्वाद — प्रश्न और उत्तर</span><span class="cnt">9 प्रश्न-उत्तर</span></summary><div class="secbody"><div class="qa open"><p class="q">प्रश्न 1. ‘एक आशीर्वाद’ कविता के लेखक कौन हैं?</p><button class="rev">उत्तर दिखाएँ</button><p class="a">उत्तर: ‘एक आशीर्वाद’ कविता के लेखक दुष्यंत कुमार हैं।</p></div><div class="qa open"><p class="q">प्रश्न 2. कवि बच्चे को क्या आशीर्वाद देते हैं?</p><button class="rev">उत्तर दिखाएँ</button><p class="a">उत्तर: कवि बच्चे को बड़े सपने देखने का आशीर्वाद देते हैं।</p></div><div class="qa open"><p class="q">प्रश्न 3. ‘भावना की गोद से उतरकर’ का क्या अर्थ है?</p><button class="rev">उत्तर दिखाएँ</button><p class="a">उत्तर: इसका अर्थ है—केवल सपने देखने के बजाय वास्तविक जीवन को समझना।</p></div><div class="qa open"><p class="q">प्रश्न 4. कवि पृथ्वी पर चलना सीखने के लिए क्यों कहते हैं?</p><button class="rev">उत्तर दिखाएँ</button><p class="a">उत्तर: क्योंकि हमें असली जीवन की कठिनाइयों का सामना करना सीखना चाहिए।</p></div><div class="qa open"><p class="q">प्रश्न 5. कवि चाँद-तारों के लिए क्या सीखने को कहते हैं?</p><button class="rev">उत्तर दिखाएँ</button><p class="a">उत्तर: कवि बड़े सपनों को पाने के लिए मेहनत और कोशिश करना सीखने को कहते हैं।</p></div><div class="qa open"><p class="q">प्रश्न 6. कवि बच्चे को हँसने, मुस्कराने और गाने के लिए क्यों कहते हैं?</p><button class="rev">उत्तर दिखाएँ</button><p class="a">उत्तर: ताकि बच्चा हमेशा खुश रहे।</p></div><div class="qa open"><p class="q">प्रश्न 7. ‘हर दीये की रोशनी देखकर ललचाएँ’ का क्या अर्थ है?</p><button class="rev">उत्तर दिखाएँ</button><p class="a">उत्तर: दूसरों की सफलता देखकर हमें भी आगे बढ़ने की इच्छा होनी चाहिए।</p></div><div class="qa open"><p class="q">प्रश्न 8. ‘अपने पाँव पर खड़े हो’ का क्या अर्थ है?</p><button class="rev">उत्तर दिखाएँ</button><p class="a">उत्तर: इसका अर्थ है—अपने काम खुद करना और आत्मनिर्भर बनना।</p></div><div class="qa open"><p class="q">प्रश्न 9: बच्चों को खुश रहने को क्यों कहा गया है?</p><button class="rev">उत्तर दिखाएँ</button><p class="a">उत्तर: बच्चों को खुश रहने के लिए कहा गया है ताकि वे जीवन में हँसते-मुस्कराते हुए आगे बढ़ें।</p></div></div></details><details class="sec" id="s17" style="--c:#d4a017"><summary><span class="chev">&#9654;</span><span class="stitle">कविता पंक्ति-दर-पंक्ति अर्थ (मल्हार पृष्ठ 36)</span><span class="cnt">7 पंक्तियाँ</span></summary><div class="secbody"><div class="mean"><p class="term">जा, तेरे स्वप्न बड़े हों।</p><p class="def">तुम आगे बढ़ो और बड़े-बड़े सपने देखो।</p></div><div class="mean"><p class="term">भावना की गोद से उतरकर, जल्द पृथ्वी पर चलना सीखें।</p><p class="def">केवल सपने मत देखो, बल्कि असली जीवन में काम करना सीखो।</p></div><div class="mean"><p class="term">चाँद-तारों-सी अप्राप्य सच्चाइयों के लिए, रूठना-मचलना सीखें।</p><p class="def">बड़ी-बड़ी चीज़ें पाने की इच्छा रखो और उन्हें पाने के लिए कोशिश करो।</p></div><div class="mean"><p class="term">हँसें, मुस्कराएँ।</p><p class="def">हमेशा खुश रहो और हँसते-मुस्कराते रहो।</p></div><div class="mean"><p class="term">गाएँ, हर दीये की रोशनी देखकर ललचाएँ।</p><p class="def">खुशियाँ मनाओ और जीवन की अच्छी चीज़ों को पाने की इच्छा रखो।</p></div><div class="mean"><p class="term">उँगली जलाएँ, अपने पाँवों पर खड़े हों।</p><p class="def">गलतियों और मुश्किलों से सीखो और अपने काम खुद करना सीखो।</p></div><div class="mean"><p class="term">जा, तेरे स्वप्न बड़े हों।</p><p class="def">आगे बढ़ो और अपने बड़े सपनों को पूरा करो।</p></div></div></details></div></details>
+  <p id="none">कुछ नहीं मिला — कोई दूसरा शब्द आज़माएँ।</p>
+  <footer>Notes.docx से बनाया गया · सब कुछ एक ही पन्ने पर</footer>
+</div>
+<script>/* ---------- Devanagari -> rough Latin consonant skeleton (for English-typed search) ---------- */
+const DEV = {
+ 'क':'k','ख':'k','ग':'g','घ':'g','ङ':'n',
+ 'च':'c','छ':'c','ज':'j','झ':'j','ञ':'n',
+ 'ट':'t','ठ':'t','ड':'d','ढ':'d','ण':'n',
+ 'त':'t','थ':'t','द':'d','ध':'d','न':'n',
+ 'प':'p','फ':'p','ब':'b','भ':'b','म':'m',
+ 'य':'y','र':'r','ल':'l','ळ':'l','व':'v',
+ 'श':'s','ष':'s','स':'s','ह':'h',
+ 'क़':'k','ख़':'k','ग़':'g','ज़':'j','ड़':'r','ढ़':'r','फ़':'p',
+ 'ं':'n','ँ':'n'
+};
+const squeeze = x => x.replace(/(.)\1+/g, '$1');
+
+function devSkel(w){
+  w = w.replace(/ज्ञ/g,'gy').replace(/क्ष/g,'ks').replace(/त्र/g,'tr').replace(/श्र/g,'sr');
+  let o = '';
+  for (const ch of w){
+    if (DEV[ch]) o += DEV[ch];
+    else if (/[a-zA-Z]/.test(ch)) o += ch.toLowerCase();
+  }
+  return squeeze(o.replace(/[aeiou]/g,''));
+}
+function latSkel(w){
+  w = w.toLowerCase()
+       .replace(/chh/g,'c').replace(/ch/g,'c').replace(/sh/g,'s').replace(/kh/g,'k')
+       .replace(/gh/g,'g').replace(/jh/g,'j').replace(/th/g,'t').replace(/dh/g,'d')
+       .replace(/ph/g,'p').replace(/bh/g,'b')
+       .replace(/w/g,'v').replace(/z/g,'j').replace(/q/g,'k').replace(/x/g,'ks').replace(/f/g,'p')
+       .replace(/[^a-z]/g,'').replace(/[aeiou]/g,'');
+  return squeeze(w);
+}
+
+/* ---------- fuller romanisation (keeps vowels) for precise English-typed search ---------- */
+const CONS = {
+ 'क':'k','ख':'kh','ग':'g','घ':'gh','ङ':'n','च':'c','छ':'ch','ज':'j','झ':'jh','ञ':'n',
+ 'ट':'t','ठ':'th','ड':'d','ढ':'dh','ण':'n','त':'t','थ':'th','द':'d','ध':'dh','न':'n',
+ 'प':'p','फ':'ph','ब':'b','भ':'bh','म':'m','य':'y','र':'r','ल':'l','ळ':'l','व':'v',
+ 'श':'s','ष':'s','स':'s','ह':'h','क़':'k','ख़':'kh','ग़':'g','ज़':'j','ड़':'r','ढ़':'rh','फ़':'ph'
+};
+const MATRA = {'ा':'a','ि':'i','ी':'i','ु':'u','ू':'u','ृ':'ri','े':'e','ै':'e','ो':'o','ौ':'o'};
+const IVOW  = {'अ':'a','आ':'a','इ':'i','ई':'i','उ':'u','ऊ':'u','ऋ':'ri','ए':'e','ऐ':'e','ओ':'o','औ':'o'};
+function norm(x){
+  return squeeze(x.toLowerCase()
+    .replace(/chh/g,'ch').replace(/aa/g,'a').replace(/ee/g,'i').replace(/ii/g,'i')
+    .replace(/oo/g,'u').replace(/uu/g,'u').replace(/ai/g,'e').replace(/au/g,'o')
+    .replace(/w/g,'v').replace(/z/g,'j').replace(/x/g,'ks').replace(/f/g,'ph')
+    .replace(/[^a-z]/g,''));
+}
+function devRoman(w){
+  w = w.replace(/ज्ञ/g,'gy').replace(/क्ष/g,'ksh').replace(/श्र/g,'shr');
+  let o = '', i = 0;
+  while (i < w.length){
+    const ch = w[i], nx = w[i+1];
+    if (CONS[ch]){
+      o += CONS[ch];
+      if (nx === '्'){ i += 2; continue; }
+      if (MATRA[nx]){ o += MATRA[nx]; i += 2; continue; }
+      o += 'a'; i++; continue;
+    }
+    if (IVOW[ch]){ o += IVOW[ch]; i++; continue; }
+    if (ch === 'ं' || ch === 'ँ'){ o += 'n'; i++; continue; }
+    if (/[a-zA-Z]/.test(ch)){ o += ch.toLowerCase(); i++; continue; }
+    i++;
+  }
+  return norm(o);
+}
+const romCache = new WeakMap();
+function secRoman(sec){
+  let v = romCache.get(sec);
+  if (!v){ v = sec.textContent.split(/\s+/).filter(Boolean).map(devRoman).filter(x=>x.length); romCache.set(sec, v); }
+  return v;
+}
+
+const skelCache = new WeakMap();
+function secSkel(sec){
+  let v = skelCache.get(sec);
+  if (!v){ v = sec.textContent.split(/\s+/).filter(Boolean).map(devSkel).filter(x=>x.length); skelCache.set(sec, v); }
+  return v;
+}
+
+/* ---------- collapsible + answers ---------- */
+const q = document.getElementById('q');
+const allD = () => [...document.querySelectorAll('details')];
+
+document.addEventListener('click', ev => {
+  const b = ev.target.closest('.rev');
+  if (b) b.closest('.qa').classList.add('open');
+});
+
+const ansBtn = document.getElementById('all');
+ansBtn.onclick = () => {
+  const on = document.querySelectorAll('.qa.open').length === 0;
+  document.querySelectorAll('.qa').forEach(x => x.classList.toggle('open', on));
+  ansBtn.textContent = on ? 'सभी उत्तर छिपाएँ' : 'सभी उत्तर दिखाएँ';
+};
+
+const expBtn = document.getElementById('exp');
+expBtn.onclick = () => {
+  const on = allD().some(d => !d.open);
+  allD().forEach(d => d.open = on);
+  expBtn.textContent = on ? 'सब बंद करें' : 'सब खोलें';
+};
+function syncExp(){ expBtn.textContent = allD().some(d => !d.open) ? 'सब खोलें' : 'सब बंद करें'; }
+allD().forEach(d => d.addEventListener('toggle', syncExp));
+
+document.querySelectorAll('.chip').forEach(c => {
+  c.onclick = e => {
+    e.preventDefault();
+    const t = document.getElementById(c.dataset.go);
+    t.open = true;
+    t.scrollIntoView({ behavior:'smooth', block:'start' });
+  };
+});
+
+/* ---------- search ---------- */
+const escHtml = x => x.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;');
+function clearMarks(el){ el.querySelectorAll('mark').forEach(m => m.replaceWith(m.textContent)); el.normalize(); }
+
+function hlPlain(node, s){
+  const txt = node.textContent, low = txt.toLowerCase(), t = s.toLowerCase();
+  let i = low.indexOf(t); if (i < 0) return;
+  let out = '', pos = 0;
+  while (i >= 0){
+    out += escHtml(txt.slice(pos,i)) + '<mark>' + escHtml(txt.slice(i, i+t.length)) + '</mark>';
+    pos = i + t.length; i = low.indexOf(t, pos);
+  }
+  node.innerHTML = out + escHtml(txt.slice(pos));
+}
+function hlWord(node, keys, fn){
+  const parts = node.textContent.split(/(\s+)/);
+  let touched = false;
+  const out = parts.map(p => {
+    if (!p.trim()) return escHtml(p);
+    const k = fn(p);
+    if (k.length && keys.some(x => k.startsWith(x))){ touched = true; return '<mark>' + escHtml(p) + '</mark>'; }
+    return escHtml(p);
+  }).join('');
+  if (touched) node.innerHTML = out;
+}
+
+const TEXTSEL = '.stitle,.qt,.term,.def,.q,.a,.opts span,.passage p,p';
+
+q.addEventListener('input', () => {
+  const s = q.value.trim();
+  document.querySelectorAll('.sec').forEach(clearMarks);
+  const secs  = [...document.querySelectorAll('.sec')];
+  const latin = /^[\x20-\x7E]+$/.test(s);
+  const words = s.split(/\s+/).filter(Boolean);
+  const rKeys = latin ? words.map(norm).filter(k => k.length >= 3) : [];
+  const sKeys = latin ? words.map(latSkel).filter(k => k.length >= 2) : [];
+
+  const plain = new Set(), roman = new Set(), skel = new Set();
+  if (s) secs.forEach(sec => {
+    if (sec.textContent.toLowerCase().includes(s.toLowerCase())) { plain.add(sec); return; }
+    if (!latin) return;
+    if (rKeys.length && rKeys.every(k => secRoman(sec).some(w => w.startsWith(k)))) { roman.add(sec); return; }
+    if (sKeys.length && sKeys.every(k => secSkel(sec).some(w => w.startsWith(k)))) skel.add(sec);
+  });
+  // precise tiers win; the loose skeleton tier is only a fallback
+  const useSkel = plain.size === 0 && roman.size === 0;
+  let shown = 0;
+
+  secs.forEach(sec => {
+    let mode = null;
+    if (!s) mode = 'none';
+    else if (plain.has(sec)) mode = 'plain';
+    else if (roman.has(sec)) mode = 'roman';
+    else if (useSkel && skel.has(sec)) mode = 'skel';
+    sec.classList.toggle('hide', mode === null);
+    if (mode === null) return;
+    shown++;
+    if (mode === 'none') return;
+    sec.open = true;
+    sec.querySelectorAll(TEXTSEL).forEach(n => {
+      if (n.children.length) return;
+      if (mode === 'plain') hlPlain(n, s);
+      else if (mode === 'roman') hlWord(n, rKeys, devRoman);
+      else hlWord(n, sKeys, devSkel);
+    });
+  });
+
+  document.querySelectorAll('.chap').forEach(c => {
+    const any = c.querySelectorAll('.sec:not(.hide)').length > 0;
+    c.classList.toggle('hide', !any);
+    if (s && any) c.open = true;
+  });
+  document.getElementById('none').style.display = shown ? 'none' : 'block';
+  syncExp();
+});
+
+window.onbeforeprint = () => allD().forEach(d => d.open = true);
+syncExp();
+</script>
+</body>
+</html>
