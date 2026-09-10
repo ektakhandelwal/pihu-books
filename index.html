@@ -105,6 +105,15 @@ const CONFIG = {
   tagline: "Tap Classes to join a class. Tap a subject to open the book.",
 
 
+  /* ---------- 0. QUICK LINKS (cards that sit FIRST on the home screen and
+                  open a link straight away — no sub-screen) ---------- */
+
+  quickLinks: [
+    { name: "Exam Portion", icon: "📋", color: "#c2255c", note: "exam folder",
+      url: "https://drive.google.com/drive/folders/1v6H7Hxmb3WEEt8cPF0thusYooDqOH6kx" }
+  ],
+
+
   /* ---------- 1. ONLINE TUITION CLASSES (inside the "Classes" card) ---------- */
 
   classes: [
@@ -286,7 +295,15 @@ function render() {
   if (view.level === "subjects") {
     bar.innerHTML = `<span class="crumb">Classes & books</span>`;
 
-    // the Classes card always sits first
+    // quick links sit right at the front
+    (CONFIG.quickLinks || []).forEach(q => grid.appendChild(tile({
+      icon: q.icon, name: q.name, color: q.color,
+      meta: has(q.url) ? (q.note || "open") : "link coming soon",
+      url: has(q.url) ? q.url : null,
+      todo: !has(q.url)
+    })));
+
+    // then the Classes card
     const liveCount = CONFIG.classes.filter(c => has(c.url)).length;
     grid.appendChild(tile({
       icon: "🎥", name: "Classes", color: "#5b5bd6",
